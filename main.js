@@ -12,6 +12,7 @@ let botoncito = document.querySelectorAll('.btn');
 init()
 
 function init() {
+  squares();
   btn();
   reset();
   setUpBtnReset();
@@ -41,7 +42,7 @@ function setUpBtnReset() {
     pickedColor = pickColor();
 
     colorDisplay.textContent = pickedColor;
-    this.textContent = "Nuevos Colores";
+    this.textContent = "New Colors";
     messageDisplay.textContent = "";
 
     for (let i = 0; i < square.length; i++) {
@@ -65,31 +66,35 @@ function reset(){
   }
   h1.style.background="#232323"
   messageDisplay.textContent=""
-  resetButton.textContent="Nuevos Colores"
+  resetButton.textContent="New Colors"
 }
 
 colorDisplay.textContent = pickedColor;
 
-for (let i = 0; i < square.length; i++) {
+function squares () {
+  for (let i = 0; i < square.length; i++) {
+      
+    square[i].style.backgroundColor = colors[i]
 
-  square[i].style.background = colors[i];
+    square[i].addEventListener("click", function(){
 
-  square[i].addEventListener("click", function () {
+        let clickedColor = this.style.backgroundColor
+        if (clickedColor !== pickedColor) {
 
-    let clickedColor = this.style.background;
+            this.style.backgroundColor = "#232323"
+            message.textContent = "Try Again"
 
-    if (clickedColor === pickedColor) {
-      messageDisplay.textContent = "Correcto";
-      resetButton.textContent = "Jugar otra vez";
-      changeColors(clickedColor);
-      h1.style.background = clickedColor;
-    } else {
-      this.style.background = "#232323";
-      messageDisplay.textContent = "Intentelo nuevamente";
-    }
-  })
+        }else{
+
+            message.textContent = "Correct! "
+            h1.style.backgroundColor = pickedColor
+            changeColors(pickedColor)
+            containerButtons.style.backgroundColor = "rgb(224, 235, 161)"
+            resetButton.textContent = "Play Again?"     
+        }
+    })    
+  }
 }
-
 
 function changeColors(color) {
 
